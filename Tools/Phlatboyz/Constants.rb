@@ -41,8 +41,8 @@ module PhlatScript
 # - - - - - - - - - - - - - - - - -
 #           Default Values
 # - - - - - - - - - - - - - - - - -
-Default_file_name = "gcode_out.cnc"
-Default_file_ext = "cnc"
+Default_file_name = "gcode_out.gcode"
+Default_file_ext = "gcode"
 Default_directory_name = Dir.pwd + "/"
 
 Default_spindle_speed = 15000

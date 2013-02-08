@@ -216,7 +216,7 @@ module PhlatScript
           pass_depth = 0
           begin # multipass
             pass += 1
-            aMill.cncPrint("(Pass: #{pass.to_s})\n") if PhlatScript.useMultipass?
+            aMill.cncPrint(";(Pass: #{pass.to_s})\n") if PhlatScript.useMultipass?
             edges.each do | phlatcut |
               cut_started = false
               point = nil

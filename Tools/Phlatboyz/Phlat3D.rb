@@ -411,7 +411,7 @@ class GCodeGen3D
 			xval = sprintf("%f",round_to(grid[0].to_a[0],5))
 			yval = sprintf("%f",round_to(grid[0].to_a[1],5))
 			zval = sprintf("%f",round_to(grid[0].to_a[2],5))
-			nf.puts "X#{xval} Y#{yval}"		
+			nf.puts "G1 X#{xval} Y#{yval}"		
 			nf.puts "G1 Z#{zval} F#@feedRate"
 			
 			for point in grid
@@ -421,10 +421,10 @@ class GCodeGen3D
 			
 				if zval.to_f > curz
 					#zval = round_to(point.to_a[2], 5)
-					nf.puts "X#{xval} Y#{yval} Z#{zval}"
+					nf.puts "G1 X#{xval} Y#{yval} Z#{zval}"
 				else
 					scurz = sprintf("%f",round_to(curz,5))
-					nf.puts "X#{xval} Y#{yval} Z#{scurz}"
+					nf.puts "G1 X#{xval} Y#{yval} Z#{scurz}"
 				end
 			end
 			nf.puts "M05"
@@ -462,13 +462,13 @@ class GCodeGen3D
 		xval = sprintf("%f",round_to(grid[0].to_a[0],5))
 		yval = sprintf("%f",round_to(grid[0].to_a[1],5))
 		zval = sprintf("%f",round_to(grid[0].to_a[2],5))
-		nf.puts "X#{xval} Y#{yval}"		
+		nf.puts "G1 X#{xval} Y#{yval}"		
 		nf.puts "G1 Z#{zval} F#@feedRate"
 		for point in grid
 			xval = sprintf("%f",round_to(point.to_a[0], 5))
 			yval = sprintf("%f",round_to(point.to_a[1], 5))
 			zval = sprintf("%f",round_to(point.to_a[2], 5))
-			nf.puts "X#{xval} Y#{yval} Z#{zval}"
+			nf.puts "G1 X#{xval} Y#{yval} Z#{zval}"
 		end
 		nf.puts "M05"
 		nf.puts "Z#@Phlat_SafeHeight"

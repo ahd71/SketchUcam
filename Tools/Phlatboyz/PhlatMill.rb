@@ -39,8 +39,8 @@ module PhlatScript
       @comment = PhlatScript.commentText
       @cmd_linear = "G1" # Linear interpolation
       @cmd_rapid = "G0" # Rapid positioning
-      @cmd_arc = "G17 G2" # coordinated helical motion about Z axis
-      @cmd_arc_rev = "G17 G3" # countercclockwise helical motion about Z axis
+      @cmd_arc = "G17\nG2" # coordinated helical motion about Z axis - can be replaced with a simple "G1" for firmwares that doesn't support ARC's
+      @cmd_arc_rev = "G17\nG3" # countercclockwise helical motion about Z axis - can be replaced with a simple "G1" for firmwares that doesn't support ARC's
       @output_file_name = output_file_name
       @mill_out_file = nil
     end
@@ -89,16 +89,16 @@ module PhlatScript
       material_thickness = Sketchup.active_model.get_attribute Dict_name, Dict_material_thickness, Default_material_thickness 
 
       cncPrint("%\n")
-      cncPrint("(#{PhlatScript.getString("PhlatboyzGcodeTrailer")%$PhlatScriptExtension.version})\n")
-      cncPrint("(File: #{PhlatScript.sketchup_file})\n") if PhlatScript.sketchup_file
-      cncPrint("(Bit diameter: #{Sketchup.format_length(bit_diameter)})\n")
-      cncPrint("(Feed rate: #{Sketchup.format_length(@speed_curr)})\n")
-      cncPrint("(Material Thickness: #{Sketchup.format_length(material_thickness)})\n")
-      cncPrint("(Material length: #{Sketchup.format_length(@material_h)} X width: #{Sketchup.format_length(@material_w)})\n")
-      cncPrint("(Overhead Gantry: #{PhlatScript.useOverheadGantry?})\n")    
-      cncPrint("(www.PhlatBoyz.com)\n")
+      cncPrint(";(#{PhlatScript.getString("PhlatboyzGcodeTrailer")%$PhlatScriptExtension.version})\n")
+      cncPrint(";(File: #{PhlatScript.sketchup_file})\n") if PhlatScript.sketchup_file
+      cncPrint(";(Bit diameter: #{Sketchup.format_length(bit_diameter)})\n")
+      cncPrint(";(Feed rate: #{Sketchup.format_length(@speed_curr)})\n")
+      cncPrint(";(Material Thickness: #{Sketchup.format_length(material_thickness)})\n")
+      cncPrint(";(Material length: #{Sketchup.format_length(@material_h)} X width: #{Sketchup.format_length(@material_w)})\n")
+      cncPrint(";(Overhead Gantry: #{PhlatScript.useOverheadGantry?})\n")    
+      cncPrint(";(www.PhlatBoyz.com)\n")
       PhlatScript.checkParens(@comment, "Comment")
-      @comment.split("$/").each{|line| cncPrint("(",line,")\n")} if !@comment.empty?
+      @comment.split("$/").each{|line| cncPrint(";(",line,")\n")} if !@comment.empty?
 
       #adapted from swarfer's metric code
       #metric by DAF - this does the basic setting up from the drawing units
@@ -112,7 +112,7 @@ module PhlatScript
         end
         
       stop_code = Use_exact_path ? "G61" : "" # G61 - Exact Path Mode
-      cncPrint("G90 #{unit_cmd} G49 #{stop_code}\n") # G90 - Absolute programming (type B and C systems)
+      cncPrint("G90\n#{unit_cmd}\nG49 #{stop_code}\n") # G90 - Absolute programming (type B and C systems)
       #cncPrint("G20\n") # G20 - Programming in inches
       #cncPrint("G49\n") # G49 - Tool offset compensation cancel
       cncPrint("M3 S", @spindle_speed, "\n") # M3 - Spindle on (CW rotation)   S spindle speed
@@ -174,7 +174,7 @@ module PhlatScript
           #zo = @min_z
         end
         command_out = ""
-        command_out += cmd if (cmd != @cc)
+        command_out += cmd 
         command_out += (format_measure('X', xo)) if (xo != @cx)
         command_out += (format_measure('Y', yo)) if (yo != @cx)
         command_out += (format_measure('Z', zo)) if (zo != @cx)
@@ -203,7 +203,7 @@ module PhlatScript
           zo = @min_z
         end
         command_out = ""
-        command_out += cmd if (cmd != @cc)
+        command_out += cmd 
         command_out += (format_measure('Z', zo)) if (zo != @cz)
         command_out += "\n"
         cncPrint(command_out)
@@ -223,7 +223,7 @@ module PhlatScript
           zo = @min_z
         end
         command_out = ""
-        command_out += cmd if (cmd != @cc)
+        command_out += cmd 
         command_out += (format_measure('Z', zo)) if (zo != @cz)
         command_out += (format_feed(so)) if (so != @cs)
         command_out += "\n"
@@ -240,7 +240,7 @@ module PhlatScript
       #G17 G2 x 10 y 16 i 3 j 4 z 9
       #G17 G2 x 10 y 15 r 20 z 5
       command_out = ""
-      command_out += cmd if (cmd != @cc)
+      command_out += cmd 
       command_out += (format_measure("X", xo)) #if (xo != @cx) x and y must be specified in G2/3 codes
       command_out += (format_measure("Y", yo)) #if (yo != @cy)
       command_out += (format_measure("Z", zo)) #if (zo != @cz)

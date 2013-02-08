@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <script>
+function callPhlatboyz(action) {
+window.location.href = 'skp:phlatboyz_action_callback@'+action;
+}
+function setFormValue(formId, value) {
+param_form.elements[formId].value = value;
+}
+function setFormCaption(formId, value) {
+document.getElementById(formId).innerHTML = value;
+}
+function setEncodedFormValue(formId, value, delim) {
+str_arr = value.split(delim);
+param_form.elements[formId].value = str_arr.join("\n");
+}
+function setCheckbox(formId, value) {
+if (value == 'false')
+{ param_form.elements[formId].checked = false }
+else
+{ param_form.elements[formId].checked = true }
+}
+function isChecked(formId) {
+param_form.elements["checkbox_hidden"].value = (param_form.elements[formId].checked) ? "true" : "false";
+}
+function hideMultipass() {
+document.getElementById("multipass_row1").style.display = 'none';
+document.getElementById("multipass_row2").style.display = 'none';
+}
+  </script>
+  <style type="text/css">
+<!--
+body {
+background-color: #ebe9ed;
+}
+td.buttons {
+font-family: Verdana, Arial, Helvetica, Sans-serif;
+text-align: center;
+font-size: 0.90em;
+}
+td {
+font-family: Verdana, Arial, Helvetica, Sans-serif;
+}
+td.caption{
+text-decoration: none;
+font-size: 0.80em;
+text-align: right;
+}
+.button {
+font-family: Verdana, Arial, Helvetica, Sans-serif;
+font-size: 0.90em;
+margin: 5px;
+padding: 3px;
+}
+-->
+  </style>
+</head>
+<body onload="callPhlatboyz('load_params')">
+<form name="param_form" action="#"> <a
+ href="mailto:phlatboyz@phlatboyz.com"><img
+ style="border: 0px solid ; width: 400px; height: 135px;"
+ alt="SketchUCam" src="images/SketchUcam-Window-Logo.png"></a><br>
+  <input name="checkbox_hidden" value="" type="hidden">
+  <table>
+    <tbody>
+      <tr>
+        <td id="spindlespeed_id" class="caption">&nbsp;</td>
+        <td><input name="spindlespeed" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="feedrate_id" class="caption">&nbsp;</td>
+        <td><input name="feedrate" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="plungerate_id" class="caption">&nbsp;</td>
+        <td><input name="plungerate" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="materialthickness_id" class="caption">&nbsp;</td>
+        <td><input name="materialthickness" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="cutfactor_id" class="caption">&nbsp;</td>
+        <td><input name="cutfactor" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="bitdiameter_id" class="caption">&nbsp;</td>
+        <td><input name="bitdiameter" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="tabwidth_id" class="caption">&nbsp;</td>
+        <td><input name="tabwidth" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="tabdepthfactor_id" class="caption">&nbsp;</td>
+        <td><input name="tabdepthfactor" value=""
+ type="text"></td>
+      </tr>
+<!--
+
+<tr>
+
+<td id="vtab_id" class="caption">&nbsp;</td>
+
+<td><input type="checkbox" name="vtab" value="vtab" /></td>
+
+</tr>
+
+-->
+      <tr>
+        <td id="safetravel_id" class="caption">&nbsp;</td>
+        <td><input name="safetravel" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="safewidth_id" class="caption">&nbsp;</td>
+        <td><input name="safewidth" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="safeheight_id" class="caption">&nbsp;</td>
+        <td><input name="safeheight" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="overheadgantry_id" class="caption">&nbsp;</td>
+        <td><input name="overheadgantry" value=""
+ type="checkbox"></td>
+      </tr>
+      <tr id="multipass_row1">
+        <td id="multipass_id" class="caption">&nbsp;</td>
+        <td><input name="multipass" type="checkbox">&nbsp;</td>
+      </tr>
+      <tr id="multipass_row2">
+        <td id="multipassdepth_id" class="caption">&nbsp;</td>
+        <td><input name="multipassdepth" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="gen3D_id" class="caption">&nbsp;</td>
+        <td><input name="gen3D" value=""
+ type="checkbox"></td>
+      </tr>
+      <tr>
+        <td id="stepover_id" class="caption">&nbsp;</td>
+        <td><input name="stepover" value=""
+ type="text"></td>
+      </tr>
+      <tr>
+        <td id="commenttext_id" class="caption">&nbsp;</td>
+        <td><textarea name="commenttext" rows="6"></textarea></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="buttons"> <input
+ value="OK" onclick="callPhlatboyz('save')" class="button"
+ type="button"><input value="Cancel"
+ onclick="callPhlatboyz('cancel')" class="button"
+ type="button"> <input value="Restore Defaults"
+ onclick="callPhlatboyz('restore_defaults')" class="button"
+ type="button"></td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+</body>
+</html>
